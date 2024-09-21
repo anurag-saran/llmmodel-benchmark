@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.job.name }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-db-container
+        image: {{ .Values.job.initDbImage }}
+        args: {{ .Values.job.initDbArgs | toJson }}
+        envFrom:
+        - configMapRef:
+            name: my-config
+      - name: llm-container
+        image: {{ .Values.job.llmImage }}
+        args: {{ .Values.job.llmArgs | toJson }}
+        envFrom:
+        - configMapRef:
+            name: my-config
+      restartPolicy: Never
+  backoffLimit: 1

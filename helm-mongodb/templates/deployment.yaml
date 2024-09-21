@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongodb
+  labels:
+    app: {{ .Release.Name }}-mongodb
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mongodb
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mongodb
+    spec:
+      containers:
+        - name: mongodb
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.mongodb.containerPort }}
+          # envFrom:
+          #   - configMapRef:
+          #       name: {{ .Release.Name }}-config
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: {{ .Values.config.mongoUsername }}
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: {{ .Values.config.mongoPassword }}

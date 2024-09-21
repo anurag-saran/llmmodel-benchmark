@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: muhammadanas379/llm
+  tag: hallucinations-latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+config:
+  workers: "1"
+  OPENAI_API_KEY: "****************"
+
+hallucination:
+  containerPort: 80

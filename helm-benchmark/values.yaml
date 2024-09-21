@@ -1,0 +1,6 @@
+job:
+  name: llm-benchmark-job
+  initDbImage: "muhammadanas379/llm:ports-latest-2"
+  llmImage: "muhammadanas379/llm:ports-latest-2"
+  initDbArgs: ["--init-db"]
+  llmArgs: ["--llm-type", "openai", "--model", "gpt-3.5-turbo"]

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-toxicity
+  labels:
+    app: {{ .Release.Name }}-toxicity
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-toxicity
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-toxicity
+    spec:
+      containers:
+        - name: toxicity
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.toxicity.containerPort }}
+          envFrom:
+            - configMapRef:
+                name: my-config
+          env:
+            - name: WORKERS
+              value: "1"
+
+
+
+
+

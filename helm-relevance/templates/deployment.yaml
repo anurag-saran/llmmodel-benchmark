@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-relevance
+  labels:
+    app: {{ .Release.Name }}-relevance
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-relevance
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-relevance
+    spec:
+      containers:
+        - name: relevance
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.relevance.containerPort }}
+          envFrom:
+            - configMapRef:
+                name: my-config
+          env:
+            - name: WORKERS
+              value: "1"
+
+
+
+
+

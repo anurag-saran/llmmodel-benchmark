@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: muhammadanas379/llm
+  tag: priv-latest-2
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+privacy:
+  containerPort: 80

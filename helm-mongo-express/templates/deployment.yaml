@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongoexpress
+  labels:
+    app: {{ .Release.Name }}-mongoexpress
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-mongoexpress
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-mongoexpress
+    spec:
+      containers:
+        - name: mongo-epxress
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.mongoexpress.containerPort }}
+          # envFrom:
+          #   - configMapRef:
+          #       name: {{ .Release.Name }}-config
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: {{ .Values.config.mongoUsername }}
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: {{ .Values.config.mongoPassword }}
+            - name: ME_CONFIG_MONGODB_URL
+              value: {{ .Values.config.mogouri }}
+
+

@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  OPENAI_API_KEY: "********************"
+  HUGGINGFACE_API_KEY: "*****************8"
+  HUGGINGFACE_MODELS_MAPPING: '{"mistral": "url","gemma": "url"}'
+  MONGO_USERNAME: "admin"
+  MONGO_PASSWORD: "ui8TZ2sHef"
+  MONGO_HOST: "mongodb"
+  DETECTOR_API_TOXICITY_URL: "http://detector-toxicity/inference/toxicity"
+  DETECTOR_API_RELEVANCE_URL: "http://detector-relevance/inference/relevance"
+  DETECTOR_API_HALLUCINATIONS_URL: "http://detector-hallucinations/inference/hallucinations"
+  DETECTOR_API_PRIVACY_URL: "http://detector-privacy/inference/privacy"
+  

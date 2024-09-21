@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: mongo
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 27017
+
+config:
+  mongoUsername: admin
+  mongoPassword: ui8TZ2sHef
+
+mongodb:
+  containerPort: 27017
+
+

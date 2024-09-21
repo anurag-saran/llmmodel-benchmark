@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-hallucination
+  labels:
+    app: {{ .Release.Name }}-hallucination
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-hallucination
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-hallucination
+    spec:
+      containers:
+        - name: hallucination
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.hallucination.containerPort }}
+          envFrom:
+            - configMapRef:
+                name: my-config
+          env:
+            # - name: WORKERS
+            #   value: {{ .Values.config.workers }}
+            - name: OPENAI_API_KEY
+              value: {{ .Values.config.OPENAI_API_KEY }}
+            - name: WORKERS
+              value: "1"
+
+
+

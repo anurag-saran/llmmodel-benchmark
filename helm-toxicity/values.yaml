@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: muhammadanas379/llm
+  tag: toxicity-latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+toxicity:
+  containerPort: 80

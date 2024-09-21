@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: benchmark-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-db-container
+        image: muhammadanas379/llm:ports-latest-2
+        args: ["--init-db"]
+        envFrom:
+        - configMapRef:
+            name: my-config
+      - name: llm-container
+        image:  muhammadanas379/llm:ports-latest-2
+        args: ["--llm-type", "openai", "--model", "gpt-3.5-turbo"]
+      restartPolicy: Never
+  backoffLimit: 1

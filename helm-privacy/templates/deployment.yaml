@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-privacy
+  labels:
+    app: {{ .Release.Name }}-privacy
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-privacy
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-privacy
+    spec:
+      containers:
+        - name: privacy
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.privacy.containerPort }}
+          envFrom:
+            - configMapRef:
+                name: my-config
+          env:
+            - name: WORKERS
+              value: "1"
+
+
+
+

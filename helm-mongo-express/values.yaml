@@ -1,0 +1,19 @@
+replicaCount: 1
+
+image:
+  repository: mongo-express
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8181
+
+config:
+  mongoUsername: admin
+  mongoPassword: ui8TZ2sHef
+  mogouri: mongodb://admin:ui8TZ2sHef@mongodb:27017/
+
+mongoexpress:
+  containerPort: 8181
+
